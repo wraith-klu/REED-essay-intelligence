@@ -1,0 +1,1878 @@
+/* ==============================================================================
+   APP COMPONENT STYLES
+   All colors via CSS variables — zero hardcoded hex.
+   No gradients on interactive elements. No pill badges. No animations.
+   ============================================================================== */
+
+/* ── 1. APP SHELL ────────────────────────────────────────────────────────────── */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-bg);
+  color: var(--app-ink);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ── 2. STICKY NAVIGATION ────────────────────────────────────────────────────── */
+.navbar {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  z-index: 100;
+  background-color: var(--app-bg);
+  border-bottom: 1px solid var(--app-rule);
+  display: flex;
+  
+  align-items: center;
+  backdrop-filter: blur(12px);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 max(1.25rem, 4vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-symbol {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: var(--app-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.brand-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--app-ink);
+  letter-spacing: -0.025em;
+}
+
+.brand-accent-text {
+  color: var(--app-accent);
+}
+
+.brand-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  color: var(--app-ink-subtle);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--app-success);
+  display: inline-block;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-tabs {
+  display: flex;
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-rule);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.tab-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--app-ink-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--app-ink);
+  background-color: var(--app-surface-hover);
+}
+
+.tab-btn.active {
+  background-color: var(--app-accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* 36×36 square Sun/Moon theme switcher */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-rule);
+  color: var(--app-ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--app-surface-hover);
+  color: var(--app-accent);
+  border-color: var(--app-accent);
+}
+
+/* ── 3. PAGE HEADER ──────────────────────────────────────────────────────────── */
+.hero {
+  padding: 2.75rem max(1.25rem, 4vw) 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Classification tag — not a pill */
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--app-accent);
+  border-bottom: 1.5px solid var(--app-accent);
+  padding-bottom: 2px;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--app-ink);
+  margin-bottom: 0.8rem;
+  max-width: 780px;
+}
+
+.hero-title-accent {
+  color: var(--app-accent);
+  font-style: italic;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--app-ink-muted);
+  max-width: 680px;
+}
+
+/* ── 4. MAIN WORKSPACE ───────────────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 max(1.25rem, 4vw) 4rem;
+}
+
+.grid-workspace {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .grid-workspace { grid-template-columns: 1fr; }
+}
+
+/* ── 5. CARDS & PANELS ───────────────────────────────────────────────────────── */
+.card-panel {
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-rule);
+  border-radius: 14px;
+  box-shadow: var(--app-shadow-lg);
+  padding: 1.75rem;
+  transition: background-color 0.25s ease;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--app-rule);
+}
+
+.panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon box — flat, no gradient */
+.title-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+}
+
+/* Semantic icon variants */
+.title-icon-success {
+  background-color: var(--app-success-soft);
+  color: var(--app-success);
+  border-color: var(--app-success-soft);
+}
+
+.title-icon-warning {
+  background-color: var(--app-warning-soft);
+  color: var(--app-warning);
+  border-color: var(--app-warning-soft);
+}
+
+.panel-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--app-ink);
+  margin-bottom: 2px;
+}
+
+.panel-subtitle {
+  font-size: 0.76rem;
+  color: var(--app-ink-subtle);
+}
+
+/* Category badge — rectangular, not pill */
+.category-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+}
+
+/* ── 6. FORM CONTROLS ────────────────────────────────────────────────────────── */
+.form-group {
+  margin-bottom: 1.35rem;
+}
+
+.input-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+
+.label-text-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--app-ink-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.field-icon {
+  flex-shrink: 0;
+  color: var(--app-accent);
+}
+
+.badge-subtle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--app-ink-subtle);
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.badge-subtle-accent {
+  color: var(--app-accent);
+  background-color: var(--app-accent-soft);
+  border-color: var(--app-accent-soft);
+  font-weight: 700;
+}
+
+.input-control,
+.select-control {
+  width: 100%;
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--app-rule);
+  border-radius: 7px;
+  color: var(--app-ink);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.input-control:focus,
+.select-control:focus,
+.textarea-control:focus {
+  border-color: var(--app-accent);
+  box-shadow: 0 0 0 3px var(--app-accent-soft);
+  background-color: var(--app-surface);
+}
+
+.select-control {
+  cursor: pointer;
+  appearance: none;
+  /* Chevron SVG with accent color replaced at runtime via data-uri — uses neutral gray to avoid hardcode */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  font-weight: 500;
+}
+
+/* Prompt topic description card */
+.prompt-meta-card {
+  margin-top: 0.65rem;
+  padding: 11px 14px;
+  border-radius: 7px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  border-left: 3px solid var(--app-accent);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--app-ink-muted);
+}
+
+.scope-tag {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--app-accent);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 6px;
+}
+
+/* ── 7. DRAFT ESSAY LABEL BAR & FORMAT TAGS ──────────────────────────────────── */
+.label-bar-composed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.tag-encoding {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background-color: var(--app-bg);
+  color: var(--app-ink-subtle);
+  border: 1px solid var(--app-rule);
+}
+
+/* File format tags — rectangular, not pill */
+.doc-format-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pill-fmt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  background-color: var(--app-bg);
+  color: var(--app-ink-subtle);
+  border: 1px solid var(--app-rule);
+}
+
+.pill-pdf    { color: var(--app-danger);  background-color: var(--app-danger-soft);  border-color: var(--app-danger-soft); }
+.pill-docx   { color: var(--app-info);    background-color: var(--app-info-soft);    border-color: var(--app-info-soft); }
+.pill-txt    { color: var(--app-success); background-color: var(--app-success-soft); border-color: var(--app-success-soft); }
+.pill-md     { color: var(--app-warning); background-color: var(--app-warning-soft); border-color: var(--app-warning-soft); }
+
+/* ── 8. FILE DROPZONE & ATTACHMENT CARD ──────────────────────────────────────── */
+.file-dropzone {
+  border: 1.5px dashed var(--app-rule);
+  border-radius: 10px;
+  padding: 14px 18px;
+  background-color: var(--app-bg);
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+}
+
+.file-dropzone * {
+  pointer-events: none;
+}
+
+.file-dropzone:hover {
+  border-color: var(--app-accent);
+  background-color: var(--app-accent-soft);
+}
+
+.file-dropzone.dragover {
+  border-color: var(--app-accent);
+  background-color: var(--app-accent-soft);
+  box-shadow: 0 0 0 3px var(--app-accent-soft);
+}
+
+.file-dropzone.uploading {
+  cursor: wait;
+  opacity: 0.85;
+}
+
+.dropzone-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dropzone-content.loading {
+  justify-content: center;
+  color: var(--app-ink-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 0;
+}
+
+/* Flat icon square — no gradient */
+.dropzone-icon-glow {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+}
+
+.file-dropzone:hover .dropzone-icon-glow {
+  background-color: var(--app-accent);
+  color: #ffffff;
+}
+
+.dropzone-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.dropzone-title {
+  font-size: 0.875rem;
+  color: var(--app-ink);
+}
+
+.dropzone-accent-word {
+  color: var(--app-accent);
+  font-weight: 700;
+}
+
+.dropzone-desc {
+  font-size: 0.77rem;
+  color: var(--app-ink-subtle);
+  margin-top: 2px;
+}
+
+/* Attached file banner */
+.attached-file-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 9px;
+  background-color: var(--app-accent-soft);
+  border: 1px solid var(--app-accent-soft);
+  border-left: 3px solid var(--app-accent);
+  margin-bottom: 0.75rem;
+}
+
+.attached-file-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* Flat icon square */
+.file-pill-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background-color: var(--app-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.file-pill-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+.file-pill-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--app-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+
+.file-pill-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--app-ink-subtle);
+  margin-top: 2px;
+}
+
+.word-count-badge {
+  color: var(--app-success);
+  font-weight: 700;
+}
+
+.attached-file-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-replace-file {
+  background-color: var(--app-surface);
+  color: var(--app-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--app-accent-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-replace-file:hover {
+  background-color: var(--app-accent);
+  color: #ffffff;
+}
+
+.btn-remove-file {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: var(--app-surface);
+  color: var(--app-ink-subtle);
+  border: 1px solid var(--app-rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-remove-file:hover {
+  background-color: var(--app-danger-soft);
+  color: var(--app-danger);
+  border-color: var(--app-danger-soft);
+}
+
+/* ── 9. TEXTAREA & TELEMETRY TOOLBAR ─────────────────────────────────────────── */
+.textarea-control {
+  width: 100%;
+  min-height: 250px;
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--app-rule);
+  border-radius: 7px;
+  color: var(--app-ink);
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.textarea-control::placeholder {
+  color: var(--app-ink-subtle);
+  font-style: italic;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--app-ink-subtle);
+}
+
+.telemetry-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.telemetry-pill {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  color: var(--app-ink-subtle);
+}
+
+.telemetry-pill strong {
+  color: var(--app-accent);
+  font-weight: 700;
+}
+
+.telemetry-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--app-info);
+  border-color: var(--app-info-soft);
+  background-color: var(--app-info-soft);
+}
+
+.telemetry-hint {
+  font-size: 0.78rem;
+  color: var(--app-ink-subtle);
+}
+
+/* ── 10. ACTION BUTTONS & ALERTS ─────────────────────────────────────────────── */
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+/* Primary button — flat accent, no gradient */
+.btn-primary {
+  background-color: var(--app-accent);
+  color: #ffffff;
+  border-radius: 7px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--app-accent-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-secondary-outline {
+  background-color: var(--app-surface);
+  color: var(--app-ink-muted);
+  border-radius: 7px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: 1px solid var(--app-rule);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.92rem;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary-outline:hover:not(:disabled) {
+  background-color: var(--app-surface-hover);
+  color: var(--app-ink);
+}
+
+.alert-banner {
+  padding: 10px 14px;
+  border-radius: 7px;
+  background-color: var(--app-danger-soft);
+  border: 1px solid var(--app-danger-soft);
+  border-left: 3px solid var(--app-danger);
+  color: var(--app-danger);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+/* ── 11. EMPTY & LOADING STATES ──────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 2.75rem 1.5rem;
+  color: var(--app-ink-muted);
+}
+
+.empty-state-avatar {
+  margin: 0 auto 1.25rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background-color: var(--app-accent-soft);
+  border: 1px solid var(--app-rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-accent);
+}
+
+.loading-avatar {
+  background-color: var(--app-surface-hover);
+  color: var(--app-ink-subtle);
+}
+
+.empty-state-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--app-ink);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--app-ink-subtle);
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* Pipeline steps in empty state */
+.pipeline-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 440px;
+  margin: 1.5rem auto 0;
+  text-align: left;
+}
+
+.pipeline-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.pipeline-step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--app-accent);
+  background-color: var(--app-accent-soft);
+  border: 1px solid var(--app-accent-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pipeline-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pipeline-step-content strong {
+  font-size: 0.82rem;
+  color: var(--app-ink);
+  font-weight: 600;
+}
+
+.pipeline-step-content span {
+  font-size: 0.75rem;
+  color: var(--app-ink-subtle);
+  line-height: 1.4;
+}
+
+@keyframes spinDropzone {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin-icon {
+  animation: spinDropzone 1.2s linear infinite;
+}
+
+/* ── 12. SCORE DISPLAY ───────────────────────────────────────────────────────── */
+.score-hero-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: 12px;
+  background-color: var(--app-accent-soft);
+  border: 1px solid var(--app-accent-soft);
+  border-left: 3px solid var(--app-accent);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Score Ring */
+.score-ring-wrapper {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.score-ring-letter {
+  position: absolute;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--app-accent);
+  line-height: 1;
+}
+
+.score-main-block {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 140px;
+}
+
+.score-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.grade-pill-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background-color: var(--app-bg);
+  color: var(--app-accent);
+  border: 1px solid var(--app-rule);
+}
+
+.score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.score-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--app-accent);
+  letter-spacing: -0.04em;
+}
+
+.score-scale {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--app-ink-subtle);
+  font-weight: 600;
+}
+
+.score-band-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.score-band-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-band-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.band-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--app-ink-subtle);
+}
+
+.band-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--app-ink);
+}
+
+.band-value small {
+  font-size: 0.82rem;
+  color: var(--app-ink-subtle);
+}
+
+/* Copy feedback button */
+.btn-copy-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background-color: var(--app-bg);
+  color: var(--app-ink-muted);
+  border: 1px solid var(--app-rule);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-copy-report:hover {
+  background-color: var(--app-surface-hover);
+  color: var(--app-ink);
+  border-color: var(--app-ink-subtle);
+}
+
+.btn-copy-report.copied {
+  background-color: var(--app-success-soft);
+  color: var(--app-success);
+  border-color: var(--app-success-soft);
+}
+
+/* Vocabulary quality badge — rectangular */
+.vocab-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.vocab-excellent {
+  background-color: var(--app-success-soft);
+  color: var(--app-success);
+  border: 1px solid var(--app-success-soft);
+}
+
+.vocab-good {
+  background-color: var(--app-info-soft);
+  color: var(--app-info);
+  border: 1px solid var(--app-info-soft);
+}
+
+.vocab-average {
+  background-color: var(--app-warning-soft);
+  color: var(--app-warning);
+  border: 1px solid var(--app-warning-soft);
+}
+
+.vocab-basic {
+  background-color: var(--app-danger-soft);
+  color: var(--app-danger);
+  border: 1px solid var(--app-danger-soft);
+}
+
+/* ── 13. METRIC TILES ────────────────────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.metric-tile {
+  border-radius: 9px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  color: var(--app-ink-subtle);
+}
+
+.metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--app-ink);
+}
+
+/* Mini progress ratio bar inside metric tile */
+.metric-mini-bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--app-rule);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.metric-mini-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.fill-info    { background-color: var(--app-info); }
+.fill-success { background-color: var(--app-success); }
+.fill-accent  { background-color: var(--app-accent); }
+.fill-warning { background-color: var(--app-warning); }
+.fill-danger  { background-color: var(--app-danger); }
+.fill-neutral { background-color: var(--app-ink-subtle); }
+
+/* Semantic color accents per tile using status tokens */
+.tile-words     .metric-label { color: var(--app-info);    }
+.tile-sentences .metric-label { color: var(--app-success); }
+.tile-lexical   .metric-label { color: var(--app-accent);  }
+.tile-avglen    .metric-label { color: var(--app-warning); }
+.tile-complex   .metric-label { color: var(--app-danger);  }
+.tile-readability .metric-label { color: var(--app-ink-muted); }
+
+/* ── 14. FEEDBACK BLOCKS ─────────────────────────────────────────────────────── */
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.feedback-editorial-summary {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--app-ink);
+  padding: 14px 18px;
+  border-left: 3px solid var(--app-accent);
+  background-color: var(--app-accent-soft);
+  border-radius: 0 8px 8px 0;
+}
+
+.feedback-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.feedback-group-strength {
+  background-color: var(--app-success-soft);
+  border: 1px solid var(--app-success-soft);
+  border-left: 3px solid var(--app-success);
+}
+
+.feedback-group-weakness {
+  background-color: var(--app-warning-soft);
+  border: 1px solid var(--app-warning-soft);
+  border-left: 3px solid var(--app-warning);
+}
+
+.feedback-group-suggestion {
+  background-color: var(--app-info-soft);
+  border: 1px solid var(--app-info-soft);
+  border-left: 3px solid var(--app-info);
+}
+
+.feedback-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.feedback-header.strength   { color: var(--app-success); }
+.feedback-header.weakness   { color: var(--app-warning); }
+.feedback-header.suggestion { color: var(--app-info);    }
+
+.feedback-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedback-list li {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--app-ink-muted);
+  position: relative;
+  padding-left: 16px;
+}
+
+.feedback-group-strength   .feedback-list li::before { content: "+"; position: absolute; left: 0; color: var(--app-success); font-weight: 700; }
+.feedback-group-weakness   .feedback-list li::before { content: "!"; position: absolute; left: 0; color: var(--app-warning); font-weight: 700; }
+.feedback-group-suggestion .feedback-list li::before { content: ">"; position: absolute; left: 0; color: var(--app-info);    font-weight: 700; }
+
+/* ── 15. SUBMISSIONS TABLE ───────────────────────────────────────────────────── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--app-rule);
+}
+
+.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.editorial-table th {
+  background-color: var(--app-bg);
+  color: var(--app-ink-subtle);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--app-rule);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.editorial-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--app-rule);
+  color: var(--app-ink);
+  vertical-align: middle;
+}
+
+.editorial-table tr:hover td {
+  background-color: var(--app-surface-hover);
+}
+
+.editorial-table tr:last-child td {
+  border-bottom: none;
+}
+
+.score-pill-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--app-accent);
+  padding: 2px 6px;
+  background-color: var(--app-accent-soft);
+  border-radius: 4px;
+}
+
+.band-pill-highlight {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--app-success);
+  padding: 2px 6px;
+  background-color: var(--app-success-soft);
+  border-radius: 4px;
+}
+
+/* ── 16. ARCHITECTURE SPEC GRID ──────────────────────────────────────────────── */
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .arch-grid { grid-template-columns: 1fr; }
+}
+
+.arch-item {
+  padding: 1.25rem;
+  border-radius: 11px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.arch-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.arch-step-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.badge-step-1 { background-color: var(--app-info-soft);    color: var(--app-info);    border: 1px solid var(--app-info-soft); }
+.badge-step-2 { background-color: var(--app-success-soft); color: var(--app-success); border: 1px solid var(--app-success-soft); }
+.badge-step-3 { background-color: var(--app-accent-soft);  color: var(--app-accent);  border: 1px solid var(--app-accent-soft); }
+.badge-step-4 { background-color: var(--app-warning-soft); color: var(--app-warning); border: 1px solid var(--app-warning-soft); }
+
+.arch-item h4 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--app-ink);
+}
+
+.arch-item p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--app-ink-muted);
+}
+
+/* Semantic top-border accent per step */
+.arch-item-1 { border-top: 2.5px solid var(--app-info);    }
+.arch-item-2 { border-top: 2.5px solid var(--app-success); }
+.arch-item-3 { border-top: 2.5px solid var(--app-accent);  }
+.arch-item-4 { border-top: 2.5px solid var(--app-warning); }
+
+/* ── 17. FOOTER ──────────────────────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--app-rule);
+  padding: 1.75rem max(1.25rem, 4vw);
+  background-color: var(--app-surface);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.footer-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copy {
+  font-size: 0.84rem;
+  color: var(--app-ink-subtle);
+  line-height: 1.55;
+}
+
+.footer-copy strong {
+  color: var(--app-ink);
+}
+
+.footer-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--app-accent);
+  padding: 4px 10px;
+  border-radius: 5px;
+  background-color: var(--app-accent-soft);
+  border: 1px solid var(--app-accent-soft);
+}
+
+/* ── 18. RESPONSIVE UTILITIES ────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .card-panel { padding: 1.25rem; }
+  .panel-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .button-row { flex-direction: column; }
+  .btn-primary, .btn-secondary-outline { width: 100%; justify-content: center; }
+  .history-header-actions { flex-direction: column; width: 100%; }
+  .history-search-wrapper { width: 100%; }
+}
+
+/* ── 19. BENCHMARK SAMPLE DRAFT LOADER ───────────────────────────────────────── */
+.sample-loader-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  margin-bottom: 1.1rem;
+}
+
+.sample-loader-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-accent);
+}
+
+.sample-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sample-pill-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 5px;
+  background-color: var(--app-surface);
+  color: var(--app-ink-muted);
+  border: 1px solid var(--app-rule);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sample-pill-btn:hover {
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border-color: var(--app-accent);
+}
+
+/* ── 20. IN-DRAFT SYNTAX & DICTION DIAGNOSTICS ───────────────────────────────── */
+.diagnostics-toggle-container {
+  margin-top: 0.75rem;
+  border-radius: 8px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  overflow: hidden;
+}
+
+.btn-diagnostics-toggle {
+  width: 100%;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: transparent;
+  color: var(--app-ink-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.btn-diagnostics-toggle:hover {
+  background-color: var(--app-surface-hover);
+  color: var(--app-ink);
+}
+
+.diagnostics-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--app-accent);
+  background-color: var(--app-accent-soft);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.diagnostics-panel {
+  padding: 12px 14px;
+  border-top: 1px solid var(--app-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diag-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.diag-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-ink-subtle);
+}
+
+.diag-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.diag-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-rule);
+  color: var(--app-ink-muted);
+}
+
+.diag-chip strong {
+  color: var(--app-warning);
+}
+
+.diag-empty {
+  font-size: 0.76rem;
+  font-style: italic;
+  color: var(--app-ink-subtle);
+}
+
+.diag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--app-rule);
+}
+
+@media (max-width: 540px) {
+  .diag-grid { grid-template-columns: 1fr; }
+}
+
+.diag-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.diag-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  color: var(--app-ink-subtle);
+  letter-spacing: 0.05em;
+}
+
+.diag-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--app-ink);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.diag-flag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--app-danger);
+  background-color: var(--app-danger-soft);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+/* ── 21. REVISION DELTA BADGE & PRINT BUTTON ─────────────────────────────────── */
+.delta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.delta-pos {
+  color: var(--app-success);
+  background-color: var(--app-success-soft);
+  border: 1px solid var(--app-success-soft);
+}
+
+.delta-neg {
+  color: var(--app-warning);
+  background-color: var(--app-warning-soft);
+  border: 1px solid var(--app-warning-soft);
+}
+
+.delta-neu {
+  color: var(--app-ink-subtle);
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.btn-print-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background-color: var(--app-bg);
+  color: var(--app-ink-muted);
+  border: 1px solid var(--app-rule);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-print-report:hover {
+  background-color: var(--app-surface-hover);
+  color: var(--app-ink);
+  border-color: var(--app-ink-subtle);
+}
+
+/* ── 22. 4-DIMENSION RUBRIC BREAKDOWN ────────────────────────────────────────── */
+.rubric-breakdown-card {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: 12px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.rubric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--app-rule);
+}
+
+.rubric-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--app-ink);
+}
+
+.rubric-scale {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-accent);
+}
+
+.rubric-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rubric-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rubric-row-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rubric-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rubric-dim-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--app-ink);
+}
+
+.rubric-dim-desc {
+  font-size: 0.73rem;
+  color: var(--app-ink-subtle);
+  line-height: 1.35;
+}
+
+.rubric-dim-score {
+  font-size: 0.95rem;
+  color: var(--app-ink);
+  flex-shrink: 0;
+}
+
+.rubric-dim-score strong {
+  font-weight: 800;
+  color: var(--app-accent);
+}
+
+.rubric-dim-score small {
+  font-size: 0.72rem;
+  color: var(--app-ink-subtle);
+}
+
+.rubric-bar {
+  width: 100%;
+  height: 5px;
+  background-color: var(--app-surface);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--app-rule);
+}
+
+.rubric-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+.rubric-fill-0 { background-color: var(--app-info); }
+.rubric-fill-1 { background-color: var(--app-accent); }
+.rubric-fill-2 { background-color: var(--app-success); }
+.rubric-fill-3 { background-color: var(--app-warning); }
+
+/* ── 23. SUBMISSIONS SEARCH & CLASS TELEMETRY SUMMARY ────────────────────────── */
+.history-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.history-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  border-radius: 6px;
+  padding: 0 8px;
+  color: var(--app-ink-subtle);
+  transition: border-color 0.15s ease;
+}
+
+.history-search-wrapper:focus-within {
+  border-color: var(--app-accent);
+}
+
+.history-search-input {
+  border: none;
+  background: transparent;
+  color: var(--app-ink);
+  font-size: 0.82rem;
+  padding: 6px 6px;
+  width: 170px;
+  outline: none;
+}
+
+.btn-clear-search {
+  background: transparent;
+  border: none;
+  color: var(--app-ink-subtle);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.btn-clear-search:hover {
+  color: var(--app-ink);
+}
+
+.history-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 680px) {
+  .history-summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.history-stat-card {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.history-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-ink-subtle);
+}
+
+.history-stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--app-ink);
+}
+
+.history-stat-value small {
+  font-size: 0.72rem;
+  color: var(--app-ink-subtle);
+}
+
+.stat-high { color: var(--app-success); }
+.stat-low { color: var(--app-warning); }
+
+/* ── 24. CLEAN PRINT STYLESHEET ──────────────────────────────────────────────── */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  .navbar,
+  .hero,
+  .panel-left,
+  .button-row,
+  .theme-toggle-btn,
+  .footer,
+  .btn-copy-report,
+  .btn-print-report,
+  .history-header-actions {
+    display: none !important;
+  }
+
+  .main-content {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .grid-workspace {
+    display: block !important;
+  }
+
+  .card-panel {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .score-hero-card {
+    border: 2px solid #333 !important;
+    background: #f8f8f8 !important;
+    page-break-inside: avoid;
+  }
+
+  .rubric-breakdown-card,
+  .metrics-grid,
+  .feedback-container {
+    page-break-inside: avoid;
+  }
+}

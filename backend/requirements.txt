@@ -1,0 +1,29 @@
+# Reed — Essay Intelligence Engine
+# Backend dependencies
+# Python >= 3.11 required  (do NOT use Python 3.14 — it is unstable)
+#
+# Install with:
+#   pip install -r requirements.txt
+
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+
+# Data validation
+pydantic==2.10.4
+
+# NLP
+nltk==3.9.1
+numpy==2.2.0
+
+# Machine Learning  — MUST match the version used to train the model
+scikit-learn==1.7.1
+joblib==1.4.2
+
+# Document extraction
+pypdf==5.1.0
+python-docx==1.1.2
+
+# HTTP client (optional, used by some utilities)
+httpx==0.28.1

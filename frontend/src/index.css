@@ -1,0 +1,134 @@
+/* ==============================================================================
+   MASTER DESIGN SYSTEM — Editorial Craftsmanship meets Silicon Precision
+   Strict CSS Variable Token System. Zero hardcoded hex in components.
+   Palette: Terracotta Brick accent on Warm Linen (light) / Obsidian (dark)
+   ============================================================================== */
+
+/* ── DARK MODE (default) ─────────────────────────────────────────────────────── */
+:root,
+[data-theme="dark"],
+.dark {
+  --app-bg:            #080c16;
+  --app-surface:       #111726;
+  --app-surface-hover: #182035;
+  --app-ink:           #f8fafc;
+  --app-ink-muted:     #cbd5e1;
+  --app-ink-subtle:    #94a3b8;
+  --app-accent:        #e07a38;
+  --app-accent-hover:  #ea8b4e;
+  --app-accent-soft:   rgba(224, 122, 56, 0.15);
+  --app-rule:          rgba(255, 255, 255, 0.09);
+  --app-shadow-lg:     0 20px 48px -12px rgba(0, 0, 0, 0.55);
+
+  /* Semantic status tokens */
+  --app-success:       #34d399;
+  --app-success-soft:  rgba(52, 211, 153, 0.14);
+  --app-warning:       #fbbf24;
+  --app-warning-soft:  rgba(251, 191, 36, 0.14);
+  --app-danger:        #fb7185;
+  --app-danger-soft:   rgba(251, 113, 133, 0.14);
+  --app-info:          #38bdf8;
+  --app-info-soft:     rgba(56, 189, 248, 0.14);
+}
+
+/* ── LIGHT MODE ──────────────────────────────────────────────────────────────── */
+[data-theme="light"],
+.light {
+  --app-bg:            #F4EFE8;
+  --app-surface:       #EDE7DF;
+  --app-surface-hover: #E4DCD2;
+  --app-ink:           #1A1916;
+  --app-ink-muted:     #3D3A35;
+  --app-ink-subtle:    #6B6762;
+  --app-accent:        #A35320;
+  --app-accent-hover:  #8A4215;
+  --app-accent-soft:   rgba(163, 83, 32, 0.12);
+  --app-rule:          rgba(26, 25, 22, 0.12);
+  --app-shadow-lg:     0 20px 48px -12px rgba(26, 25, 22, 0.14);
+
+  /* Semantic status tokens */
+  --app-success:       #059669;
+  --app-success-soft:  rgba(5, 150, 105, 0.10);
+  --app-warning:       #d97706;
+  --app-warning-soft:  rgba(217, 119, 6, 0.10);
+  --app-danger:        #e11d48;
+  --app-danger-soft:   rgba(225, 29, 72, 0.10);
+  --app-info:          #0284c7;
+  --app-info-soft:     rgba(2, 132, 199, 0.10);
+}
+
+/* ── BASE RESET ──────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-ink);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--app-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--app-rule);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--app-accent); }
+
+/* ── FOCUS ───────────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--app-accent-soft);
+  border-color: var(--app-accent) !important;
+}
+
+/* ── ELEMENTS ────────────────────────────────────────────────────────────────── */
+button {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.15s ease;
+}
+button:active { transform: scale(0.98); }
+
+textarea,
+input,
+select {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* ── TYPOGRAPHY HELPERS ──────────────────────────────────────────────────────── */
+code, pre, kbd, .mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--app-ink-muted);
+  background-color: var(--app-surface);
+  border: 1px solid var(--app-rule);
+  border-radius: 4px;
+  box-shadow: 0 1px 0 var(--app-rule);
+}
