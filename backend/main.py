@@ -51,8 +51,9 @@ class EssaySubmissionRequest(BaseModel):
 @app.get("/")
 def root():
     return {
-        "engine": "Reed — Essay Intelligence Engine",
+        "detail": "Active",
         "status": "online",
+        "engine": "Reed — Essay Intelligence Engine",
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/api/health"
