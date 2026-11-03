@@ -409,6 +409,9 @@ export default function App() {
   const [prevResult, setPrevResult] = useState(null);
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const [historySearch, setHistorySearch] = useState('');
+  const [isCustomPrompt, setIsCustomPrompt] = useState(false);
+  const [customPromptTitle, setCustomPromptTitle] = useState('');
+  const [customPromptDesc, setCustomPromptDesc] = useState('');
   const fileInputRef = useRef(null);
 
   // Sync theme attribute
@@ -448,6 +451,7 @@ export default function App() {
   const loadSampleEssay = (sampleId) => {
     const s = SAMPLE_ESSAYS.find(item => item.id === sampleId);
     if (!s) return;
+    setIsCustomPrompt(false);
     setStudentName(s.student);
     if (s.promptId && prompts.some(p => p.id === s.promptId)) {
       setSelectedPromptId(s.promptId);
@@ -515,6 +519,10 @@ export default function App() {
       setErrorMsg('Please compose at least 5 words to initiate NLP evaluation.');
       return;
     }
+    if (isCustomPrompt && !customPromptDesc.trim()) {
+      setErrorMsg('Please enter your custom prompt topic or guidelines.');
+      return;
+    }
     setErrorMsg('');
     setIsLoading(true);
     try {
@@ -523,7 +531,9 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           student_name: studentName.trim() || 'Anonymous Scholar',
-          prompt_id: selectedPromptId ? parseInt(selectedPromptId, 10) : null,
+          prompt_id: isCustomPrompt ? null : (selectedPromptId ? parseInt(selectedPromptId, 10) : null),
+          custom_prompt_title: isCustomPrompt ? (customPromptTitle.trim() || 'Custom Evaluation Topic') : null,
+          custom_prompt_desc: isCustomPrompt ? customPromptDesc.trim() : null,
           essay_text: essayText
         })
       });
@@ -772,27 +782,64 @@ export default function App() {
 
               {/* Evaluation Prompt */}
               <div className="form-group">
-                <label className="input-label" htmlFor="prompt-select">
+                <div className="input-label">
                   <span className="label-text-with-icon">
                     <BookIcon size={14} />
-                    <span>Evaluation Prompt</span>
+                    <span>Evaluation Prompt Topic</span>
                   </span>
-                  <span className="badge-subtle badge-subtle-accent">{prompts.length} prompts</span>
-                </label>
-                <select
-                  id="prompt-select"
-                  className="select-control"
-                  value={selectedPromptId}
-                  onChange={(e) => setSelectedPromptId(e.target.value)}
-                >
-                  {prompts.map(p => (
-                    <option key={p.id} value={p.id}>{p.title}</option>
-                  ))}
-                </select>
-                {activePrompt && (
-                  <div className="prompt-meta-card">
-                    <span className="scope-tag">Topic Scope</span>
-                    {activePrompt.description}
+                  <div className="prompt-mode-toggle">
+                    <button
+                      type="button"
+                      className={`btn-mode-pill ${!isCustomPrompt ? 'active' : ''}`}
+                      onClick={() => setIsCustomPrompt(false)}
+                    >
+                      Presets ({prompts.length})
+                    </button>
+                    <button
+                      type="button"
+                      className={`btn-mode-pill ${isCustomPrompt ? 'active' : ''}`}
+                      onClick={() => setIsCustomPrompt(true)}
+                    >
+                      + Custom Topic
+                    </button>
+                  </div>
+                </div>
+
+                {!isCustomPrompt ? (
+                  <>
+                    <select
+                      id="prompt-select"
+                      className="select-control"
+                      value={selectedPromptId}
+                      onChange={(e) => setSelectedPromptId(e.target.value)}
+                    >
+                      {prompts.map(p => (
+                        <option key={p.id} value={p.id}>{p.title}</option>
+                      ))}
+                    </select>
+                    {activePrompt && (
+                      <div className="prompt-meta-card">
+                        <span className="scope-tag">Topic Scope</span>
+                        {activePrompt.description}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="custom-prompt-container">
+                    <input
+                      type="text"
+                      className="input-control custom-prompt-title-input"
+                      placeholder="Topic Title (e.g., Space Exploration vs Ocean Science)"
+                      value={customPromptTitle}
+                      onChange={(e) => setCustomPromptTitle(e.target.value)}
+                    />
+                    <textarea
+                      className="textarea-control custom-prompt-desc-input"
+                      placeholder="Write your custom prompt guidelines, scope, or rubric criteria. Reed's NLP engine will evaluate your essay's semantic alignment against this prompt..."
+                      value={customPromptDesc}
+                      onChange={(e) => setCustomPromptDesc(e.target.value)}
+                      rows={3}
+                    />
                   </div>
                 )}
               </div>

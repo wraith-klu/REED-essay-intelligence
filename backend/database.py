@@ -74,6 +74,18 @@ def init_db():
     conn.commit()
     conn.close()
 
+def create_custom_prompt(title: str, description: str, sample_reference: str = "") -> int:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO prompts (title, description, sample_reference)
+        VALUES (?, ?, ?)
+    """, (title.strip(), description.strip(), (sample_reference or description).strip()))
+    prompt_id = cursor.lastrowid
+    conn.commit()
+    conn.close()
+    return prompt_id
+
 def save_submission(student_name: str, prompt_id: int | None, essay_text: str,
                     word_count: int, sentence_count: int, score_100: float,
                     score_10: float, vocabulary_quality: str, feedback_json: str):

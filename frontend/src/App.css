@@ -383,6 +383,57 @@
   font-weight: 500;
 }
 
+/* Prompt mode toggle & custom prompt container */
+.prompt-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.btn-mode-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--app-ink-subtle);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-mode-pill:hover:not(.active) {
+  color: var(--app-ink);
+}
+
+.btn-mode-pill.active {
+  background-color: var(--app-accent);
+  color: #ffffff;
+}
+
+.custom-prompt-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0.2rem;
+}
+
+.custom-prompt-title-input {
+  font-weight: 600;
+}
+
+.custom-prompt-desc-input {
+  min-height: 80px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
 /* Prompt topic description card */
 .prompt-meta-card {
   margin-top: 0.65rem;

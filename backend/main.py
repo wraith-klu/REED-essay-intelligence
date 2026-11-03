@@ -43,9 +43,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class CreatePromptRequest(BaseModel):
+    title: str = Field(..., min_length=3, max_length=150)
+    description: str = Field(..., min_length=5)
+
 class EssaySubmissionRequest(BaseModel):
     student_name: Optional[str] = Field(default="Student", description="Name of student submitting")
     prompt_id: Optional[int] = Field(default=None, description="Selected prompt ID")
+    custom_prompt_title: Optional[str] = Field(default=None, description="Custom prompt title")
+    custom_prompt_desc: Optional[str] = Field(default=None, description="Custom prompt description / rubric scope")
     essay_text: str = Field(..., min_length=10, description="The complete essay text")
 
 @app.get("/")
@@ -66,6 +72,11 @@ def health():
 @app.get("/api/prompts")
 def list_prompts():
     return database.get_all_prompts()
+
+@app.post("/api/prompts")
+def create_prompt(payload: CreatePromptRequest):
+    new_id = database.create_custom_prompt(payload.title, payload.description)
+    return {"id": new_id, "title": payload.title, "description": payload.description}
 
 @app.get("/api/history")
 def list_history():
@@ -183,7 +194,13 @@ def grade_essay(payload: EssaySubmissionRequest):
 
     # Reference prompt similarity check (Cosine similarity on TF-IDF)
     ref_text = ""
-    if payload.prompt_id:
+    assigned_prompt_id = payload.prompt_id
+
+    if payload.custom_prompt_desc and payload.custom_prompt_desc.strip():
+        ref_text = payload.custom_prompt_desc.strip()
+        custom_title = (payload.custom_prompt_title or "Custom Evaluation Topic").strip()
+        assigned_prompt_id = database.create_custom_prompt(custom_title, ref_text)
+    elif payload.prompt_id:
         prompts = database.get_all_prompts()
         for p in prompts:
             if p["id"] == payload.prompt_id:
@@ -213,7 +230,7 @@ def grade_essay(payload: EssaySubmissionRequest):
     # 5. Persist to Database
     essay_id = database.save_submission(
         student_name=payload.student_name or "Anonymous",
-        prompt_id=payload.prompt_id,
+        prompt_id=assigned_prompt_id,
         essay_text=essay_text,
         word_count=features["word_count"],
         sentence_count=features["sentence_count"],
