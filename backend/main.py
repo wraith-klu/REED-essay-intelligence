@@ -48,6 +48,16 @@ class EssaySubmissionRequest(BaseModel):
     prompt_id: Optional[int] = Field(default=None, description="Selected prompt ID")
     essay_text: str = Field(..., min_length=10, description="The complete essay text")
 
+@app.get("/")
+def root():
+    return {
+        "engine": "Reed — Essay Intelligence Engine",
+        "status": "online",
+        "version": "1.0.0",
+        "docs": "/docs",
+        "health": "/api/health"
+    }
+
 @app.get("/api/health")
 def health():
     return {"status": "online", "model_trained": scoring_model.is_trained}
