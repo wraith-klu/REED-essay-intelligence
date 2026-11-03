@@ -1927,3 +1927,273 @@
     page-break-inside: avoid;
   }
 }
+
+/* ── 25. LIVE NLP PIPELINE EXECUTION TREE / GRAPH ────────────────────────────── */
+.pipeline-live-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 1.35rem 1.45rem;
+  border-radius: 12px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-rule);
+}
+
+.pipeline-live-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pipeline-live-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pipeline-live-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pipeline-live-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.22rem;
+  font-weight: 400;
+  color: var(--app-ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 2px;
+}
+
+.pipeline-live-subtitle {
+  font-size: 0.76rem;
+  color: var(--app-ink-subtle);
+}
+
+.pipeline-live-status-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 5px;
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0.04em;
+}
+
+.pipeline-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--app-accent);
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(224, 122, 56, 0.7);
+  animation: pulseDot 1.4s infinite;
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(224, 122, 56, 0.7); }
+  70% { box-shadow: 0 0 0 7px rgba(224, 122, 56, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 122, 56, 0); }
+}
+
+.pipeline-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--app-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--app-rule);
+}
+
+.pipeline-progress-fill {
+  height: 100%;
+  background-color: var(--app-accent);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Pipeline Tree Flow Nodes */
+.pipeline-tree {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+  position: relative;
+}
+
+.pipeline-tree-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.pipeline-tree-node:last-child {
+  padding-bottom: 4px;
+}
+
+/* Vertical Connecting Stem */
+.pipeline-tree-line {
+  position: absolute;
+  left: 14px;
+  top: 30px;
+  bottom: 0px;
+  width: 2px;
+  background-color: var(--app-rule);
+  transition: background-color 0.3s ease;
+}
+
+.pipeline-tree-line.line-complete {
+  background-color: var(--app-success);
+}
+
+.pipeline-tree-line.line-active {
+  background: linear-gradient(to bottom, var(--app-accent) 0%, var(--app-rule) 100%);
+}
+
+.pipeline-node-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: all 0.25s ease;
+}
+
+.node-complete .pipeline-node-icon {
+  background-color: var(--app-success-soft);
+  color: var(--app-success);
+  border: 1.5px solid var(--app-success);
+}
+
+.node-current .pipeline-node-icon {
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1.5px solid var(--app-accent);
+}
+
+.node-pending .pipeline-node-icon {
+  background-color: var(--app-surface);
+  color: var(--app-ink-subtle);
+  border: 1px solid var(--app-rule);
+}
+
+.node-active-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--app-accent);
+  animation: pulseDot 1.2s infinite;
+}
+
+.node-step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.pipeline-node-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pipeline-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pipeline-node-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--app-ink);
+}
+
+.node-pending .pipeline-node-title {
+  color: var(--app-ink-subtle);
+}
+
+.pipeline-node-desc {
+  font-size: 0.74rem;
+  color: var(--app-ink-subtle);
+  line-height: 1.4;
+}
+
+.pipeline-node-live-info {
+  font-size: 0.7rem;
+  color: var(--app-accent);
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+.pipeline-node-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.tag-running {
+  background-color: var(--app-accent-soft);
+  color: var(--app-accent);
+  border: 1px solid var(--app-accent-soft);
+}
+
+.tag-done {
+  background-color: var(--app-success-soft);
+  color: var(--app-success);
+  border: 1px solid var(--app-success-soft);
+}
+
+.tag-queued {
+  background-color: var(--app-surface);
+  color: var(--app-ink-subtle);
+  border: 1px solid var(--app-rule);
+}
+
+/* Footer Telemetry Banner */
+.pipeline-live-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--app-rule);
+  font-size: 0.73rem;
+}
+
+.pipeline-live-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-footer-label {
+  color: var(--app-ink-subtle);
+}

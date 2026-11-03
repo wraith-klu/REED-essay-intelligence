@@ -317,6 +317,40 @@ So AI is helpful but students should be careful and not cheat on homework. Schoo
   }
 ];
 
+/* ── Live NLP Pipeline Analytical Execution Stages ────────────────────────── */
+const PIPELINE_STAGES = [
+  {
+    step: '01',
+    name: 'Tokenization & Boundary Lemmatization',
+    desc: 'Sentence segmentation & WordNet root lemma extraction via NLTK',
+    detail: 'Isolating lexical tokens, stripping punctuation & stop words'
+  },
+  {
+    step: '02',
+    name: 'Linguistic Feature Extraction',
+    desc: 'Type-Token Ratio (TTR), clause complexity & syllable distribution',
+    detail: 'Measuring vocabulary diversity & syntactic depth'
+  },
+  {
+    step: '03',
+    name: 'Semantic Cosine Alignment',
+    desc: 'TF-IDF vector matching against evaluation rubric topic',
+    detail: 'Computing semantic cosine proximity to prompt benchmark'
+  },
+  {
+    step: '04',
+    name: 'Supervised ML Regression',
+    desc: 'Calibrated Random Forest Regressor prediction',
+    detail: 'Predicting calibrated score across 4 holistic dimensions'
+  },
+  {
+    step: '05',
+    name: 'Actionable Editorial Synthesis',
+    desc: 'Formulating developmental critique, strengths & advice',
+    detail: 'Mapping regression outputs to qualitative rubric breakdown'
+  }
+];
+
 /* Score ring — SVG arc, no animation, pure CSS variable colors */
 function ScoreRing({ score, size = 96 }) {
   const r = 34;
@@ -412,7 +446,22 @@ export default function App() {
   const [isCustomPrompt, setIsCustomPrompt] = useState(false);
   const [customPromptTitle, setCustomPromptTitle] = useState('');
   const [customPromptDesc, setCustomPromptDesc] = useState('');
+  const [activePipelineStage, setActivePipelineStage] = useState(0);
   const fileInputRef = useRef(null);
+
+  // Interval-driven progress stepper while model is executing
+  useEffect(() => {
+    let timer;
+    if (isLoading) {
+      setActivePipelineStage(0);
+      timer = setInterval(() => {
+        setActivePipelineStage(prev => (prev < PIPELINE_STAGES.length - 1 ? prev + 1 : prev));
+      }, 650);
+    } else {
+      setActivePipelineStage(0);
+    }
+    return () => clearInterval(timer);
+  }, [isLoading]);
 
   // Sync theme attribute
   useEffect(() => {
@@ -1116,15 +1165,92 @@ export default function App() {
               )}
 
               {isLoading && (
-                <div className="empty-state">
-                  <div className="empty-state-avatar loading-avatar">
-                    <RefreshIcon size={24} className="spin-icon" />
+                <div className="pipeline-live-card">
+                  <div className="pipeline-live-header">
+                    <div className="pipeline-live-title-group">
+                      <div className="pipeline-live-icon-box">
+                        <RefreshIcon size={18} className="spin-icon" />
+                      </div>
+                      <div>
+                        <h3 className="pipeline-live-title">NLP Pipeline In Progress</h3>
+                        <span className="pipeline-live-subtitle">
+                          Evaluating {liveWordCount} words across 5 analytical phases
+                        </span>
+                      </div>
+                    </div>
+                    <div className="pipeline-live-status-pill">
+                      <span className="pipeline-pulse-dot" />
+                      <span>Stage {activePipelineStage + 1} of {PIPELINE_STAGES.length}</span>
+                    </div>
                   </div>
-                  <h3 className="empty-state-title">Running NLP Pipeline</h3>
-                  <p className="empty-state-desc">
-                    Lemmatizing tokens, parsing syntactic structures, and evaluating
-                    semantic cosine similarity against benchmark rubrics...
-                  </p>
+
+                  {/* Top hairline progress bar */}
+                  <div className="pipeline-progress-bar">
+                    <div
+                      className="pipeline-progress-fill"
+                      style={{ width: `${((activePipelineStage + 1) / PIPELINE_STAGES.length) * 100}%` }}
+                    />
+                  </div>
+
+                  {/* Connected Stage Graph / Tree */}
+                  <div className="pipeline-tree">
+                    {PIPELINE_STAGES.map((stage, idx) => {
+                      const isComplete = idx < activePipelineStage;
+                      const isCurrent = idx === activePipelineStage;
+                      const isPending = idx > activePipelineStage;
+
+                      return (
+                        <div
+                          key={stage.step}
+                          className={`pipeline-tree-node ${isComplete ? 'node-complete' : ''} ${isCurrent ? 'node-current' : ''} ${isPending ? 'node-pending' : ''}`}
+                        >
+                          {/* Vertical Connector Line to next node */}
+                          {idx < PIPELINE_STAGES.length - 1 && (
+                            <div className={`pipeline-tree-line ${isComplete ? 'line-complete' : isCurrent ? 'line-active' : ''}`} />
+                          )}
+
+                          {/* Node Icon Indicator */}
+                          <div className="pipeline-node-icon">
+                            {isComplete ? (
+                              <CheckIcon size={12} />
+                            ) : isCurrent ? (
+                              <span className="node-active-pulse" />
+                            ) : (
+                              <span className="node-pending-dot">{stage.step}</span>
+                            )}
+                          </div>
+
+                          {/* Node Content */}
+                          <div className="pipeline-node-body">
+                            <div className="pipeline-node-header">
+                              <span className="pipeline-node-title">{stage.name}</span>
+                              {isCurrent && <span className="pipeline-node-tag tag-running">EXECUTING</span>}
+                              {isComplete && <span className="pipeline-node-tag tag-done">DONE</span>}
+                              {isPending && <span className="pipeline-node-tag tag-queued">QUEUED</span>}
+                            </div>
+                            <span className="pipeline-node-desc">{stage.desc}</span>
+                            {isCurrent && (
+                              <span className="pipeline-node-live-info mono">
+                                → {stage.detail}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Model & Rubric Telemetry Footer */}
+                  <div className="pipeline-live-footer">
+                    <div className="pipeline-live-footer-item">
+                      <span className="live-footer-label">Classifier:</span>
+                      <strong className="mono">RandomForestRegressor</strong>
+                    </div>
+                    <div className="pipeline-live-footer-item">
+                      <span className="live-footer-label">Rubric Model:</span>
+                      <strong className="mono">4-Dimension Matrix</strong>
+                    </div>
+                  </div>
                 </div>
               )}
 
